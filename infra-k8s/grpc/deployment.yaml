@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-otel-grpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-otel-grpc
+  template:
+    metadata:
+      labels:
+        app: api-otel-grpc
+    spec:
+      containers:
+      - name: api-otel-grpc
+        image: api-otel-grpc:1.0.0
+        ports:
+        - containerPort: 50051
+        env:
+        - name: GRPC_HOST
+          value: "0.0.0.0:50051"
+        env:
+        - name: NODE_ENV
+          value: "production"   
+        - name: REDIS
+          value: redis
+
